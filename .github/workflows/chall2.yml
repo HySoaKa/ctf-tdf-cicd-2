@@ -29,7 +29,7 @@ jobs:
           COMMENT_CONTENT: ${{ github.event.comment.body }}
           GH_TOKEN: ${{ github.token }}
         run: |
-          CLEAN_RELEASE=$($COMMENT_CONTENT | cut -c 1-100)
+          CLEAN_RELEASE=$(printf '%s' "$COMMENT_CONTENT" | cut -c 1-100)
           echo "RELEASE_MESSAGE=$CLEAN_RELEASE" >> $GITHUB_ENV
 
       - name: Run my unit tests
@@ -40,9 +40,9 @@ jobs:
         env:
           FLAG: ${{ secrets.FLAG }}
       
-      
-      - name : Do the release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run : |
-          gh release create "v$(date '+%Y%m%d_%H%M%S')" --repo ${{ github.repository }} --notes "$RELEASE_MESSAGE"
+# Not necessary for now      
+#      - name : Do the release
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#        run : |
+#          gh release create "v$(date '+%Y%m%d_%H%M%S')" --repo ${{ github.repository }} --notes "$RELEASE_MESSAGE"
