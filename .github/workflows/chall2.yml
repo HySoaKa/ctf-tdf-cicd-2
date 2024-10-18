@@ -23,6 +23,9 @@ jobs:
           CLEAN_RELEASE=$(printf '%s' "$COMMENT_CONTENT" | cut -c 1-100)
           echo "RELEASE_MESSAGE=$CLEAN_RELEASE" >> $GITHUB_ENV
 
+      - name: Print env var
+        run : printenv
+
       - name: Run my unit tests
         working-directory: python-example-app
         run: |
